@@ -1,8 +1,9 @@
-package com.jmorata.torrentDownloader.torrentDownloader.domain;
+package com.jmorata.torrentDownloader.domain;
 
 import lombok.Builder;
 
 @Builder
+@lombok.Data
 public class Data {
 
     private String title;

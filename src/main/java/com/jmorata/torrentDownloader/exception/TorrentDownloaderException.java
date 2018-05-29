@@ -1,6 +1,6 @@
-package com.jmorata.torrentDownloader.torrentDownloader.exception;
+package com.jmorata.torrentDownloader.exception;
 
-public class TorrentDownloaderException extends RuntimeException{
+public class TorrentDownloaderException extends Exception{
 
     public TorrentDownloaderException(String message) {
         super(message);
