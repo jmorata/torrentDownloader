@@ -12,8 +12,6 @@ public class Data {
 
     private String link;
 
-    private String fileName;
-
     private String torrentLink;
 
     private String torrent;
