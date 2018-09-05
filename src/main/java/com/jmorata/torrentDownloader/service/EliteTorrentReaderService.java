@@ -9,15 +9,15 @@ import org.jsoup.select.Elements;
 
 import java.net.URL;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class EliteTorrentReaderService extends DataWebReaderService {
 
-    private static final String DESCARGAR_EL_TORRENT = "Descargar el .torrent";
+    private static final String DOWNLOAD_TORRENT = "Descargar el .torrent";
+    private static final String NOT_FOUND_LINK = "not found" ;
 
-    public EliteTorrentReaderService(URL url, Set<String> categories) {
-        super(url, categories);
+    public EliteTorrentReaderService(URL url, String categoriesStr) {
+        super(url, categoriesStr);
     }
 
     @Override
@@ -51,23 +51,22 @@ public class EliteTorrentReaderService extends DataWebReaderService {
     private void addDataObject(Set<Data> dataSet, String linkHref, String linkTitle, String category) throws TorrentDownloaderException {
         if (linkHref.contains("-" + category + "-")) {
             String torrentLink = getTorrentLink(linkHref);
-            if (!torrentLink.isEmpty()) {
 
-                // TODO: complete data object
-                Data data = Data.builder()
-                        .category(category)
-                        .title(linkTitle)
-                        .link(linkHref)
-                        .torrentLink(getHost(torrentLink))
-                        .torrent(getTorrent(torrentLink))
-                        .build();
+            if (!NOT_FOUND_LINK.equals(torrentLink)) {
+                Data data = newData(linkHref, linkTitle, category, torrentLink);
                 dataSet.add(data);
             }
         }
     }
 
-    private String getTorrent(String torrentLink) {
-        return torrentLink.substring(torrentLink.lastIndexOf("/") + 1);
+    private Data newData(String linkHref, String linkTitle, String category, String torrentLink) {
+        return Data.builder()
+                            .category(category)
+                            .title(linkTitle)
+                            .link(linkHref)
+                            .torrentLink(getHost(torrentLink))
+                            .torrent(getTorrent(torrentLink))
+                            .build();
     }
 
     private String getTorrentLink(String linkHref) throws TorrentDownloaderException {
@@ -78,7 +77,7 @@ public class EliteTorrentReaderService extends DataWebReaderService {
 
             for (Element link : links) {
                 String text = link.text();
-                if (DESCARGAR_EL_TORRENT.equalsIgnoreCase(text)) {
+                if (DOWNLOAD_TORRENT.equalsIgnoreCase(text)) {
                     return link.attr("href");
                 }
             }
@@ -87,15 +86,7 @@ public class EliteTorrentReaderService extends DataWebReaderService {
             throw new TorrentDownloaderException("Error processing torrent link" + linkHref, e);
         }
 
-        return "";
-    }
-
-    private String getHost(String torrentLink) {
-        if (!torrentLink.startsWith("http")) {
-            torrentLink = url.getProtocol() + "://" + url.getHost() + torrentLink;
-        }
-
-        return torrentLink;
+        return NOT_FOUND_LINK;
     }
 
 }

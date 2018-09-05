@@ -20,19 +20,16 @@ public class EliteTorrentReaderServiceShould {
 
     @Before
     public void startUp() throws Exception {
-        PropertiesService propertiesService=new PropertiesService("torrentDownloader.properties");
-        String downUrl=propertiesService.getProperty("down.url");
-        URL url=new URL(downUrl);
+        String downUrl = "https://www.elitetorrent.biz/peliculas-8";
+        String categoriesStr = "1080p";
+        URL url = new URL(downUrl);
 
-        Set<String> categories=new HashSet<>();
-        categories.add("1080p");
-
-        eliteTorrentReaderService =new EliteTorrentReaderService(url, categories);
+        eliteTorrentReaderService = new EliteTorrentReaderService(url, categoriesStr);
     }
-    
+
     @Test
     public void buildDataSetFromStreamTest() throws TorrentDownloaderException {
-        Set<Data> dataSet= eliteTorrentReaderService.buildDataSet();
+        Set<Data> dataSet = eliteTorrentReaderService.buildDataSet();
         assertFalse(dataSet.isEmpty());
     }
 
