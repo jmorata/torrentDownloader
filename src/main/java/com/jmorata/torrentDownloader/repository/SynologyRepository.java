@@ -1,6 +1,6 @@
 package com.jmorata.torrentDownloader.repository;
 
-import com.jmorata.torrentDownloader.domain.Data;
+import com.jmorata.torrentDownloader.entity.DataEntity;
 import com.jmorata.torrentDownloader.exception.TorrentDownloaderException;
 import com.jmorata.torrentDownloader.service.PropertiesService;
 import org.postgresql.util.PSQLException;
@@ -97,25 +97,25 @@ public class SynologyRepository {
         }
     }
 
-    public void persistTorrentDataSet(Set<Data> data) throws Exception {
+    public void persistTorrentDataSet(Set<DataEntity> dataSet) throws Exception {
         connectTorrent();
-        for (Data rss : data) {
+        for (DataEntity data : dataSet) {
 
             PreparedStatement pstmt = torrentConn
                     .prepareStatement("insert into data(title, category, link) values (?,?,?)");
 
-            pstmt.setString(1, rss.getTitle());
-            pstmt.setString(2, rss.getCategory());
-            pstmt.setString(3, rss.getLink());
+            pstmt.setString(1, data.getTitle());
+            pstmt.setString(2, data.getCategory());
+            pstmt.setString(3, data.getLink());
 
             pstmt.executeUpdate();
         }
     }
 
-    public void persistDownloaderDataSet(Set<Data> data) throws Exception {
+    public void persistDownloaderDataSet(Set<DataEntity> dataSet) throws Exception {
         connectSynology();
         java.util.Date date = new java.util.Date();
-        for (Data rss : data) {
+        for (DataEntity data : dataSet) {
 
             // download_queue
             PreparedStatement pstmt = synoConn.prepareStatement(
@@ -127,8 +127,8 @@ public class SynologyRepository {
 
             pstmt.setString(1, "admin");
             pstmt.setInt(2, -1);
-            pstmt.setString(3, rss.getTorrentLink());
-            pstmt.setString(4, rss.getTorrent());
+            pstmt.setString(3, data.getTorrentLink());
+            pstmt.setString(4, data.getTorrent());
             pstmt.setInt(5, 1);
             pstmt.setLong(6, (date.getTime() / 1000L));
             for (int i = 7; i <= 20; i++) {
@@ -147,9 +147,9 @@ public class SynologyRepository {
         }
     }
 
-    public void checkTorrentDataSet(Set<Data> data) throws Exception {
+    public void checkTorrentDataSet(Set<DataEntity> data) throws Exception {
         connectTorrent();
-        Iterator<Data> it = data.iterator();
+        Iterator<DataEntity> it = data.iterator();
         while (it.hasNext()) {
             Statement stmt = torrentConn.createStatement();
             ResultSet rs = stmt

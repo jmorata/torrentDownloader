@@ -1,6 +1,8 @@
 package com.jmorata.torrentDownloader.service;
 
+import com.jmorata.torrentDownloader.adapter.DataAdapter;
 import com.jmorata.torrentDownloader.domain.Data;
+import com.jmorata.torrentDownloader.entity.DataEntity;
 import com.jmorata.torrentDownloader.exception.TorrentDownloaderException;
 import com.jmorata.torrentDownloader.repository.SynologyRepository;
 
@@ -16,7 +18,8 @@ public class SynologyService {
 
     public void persistTorrentDataSet(Set<Data> data) throws TorrentDownloaderException {
         try {
-            this.synologyRepository.persistTorrentDataSet(data);
+            Set<DataEntity> dataEntitySet=DataAdapter.getDataEntitySet(data);
+            this.synologyRepository.persistTorrentDataSet(dataEntitySet);
 
         } catch (Exception e) {
             throw new TorrentDownloaderException("Error persisting torrent data", e);
@@ -25,7 +28,8 @@ public class SynologyService {
 
     public void persistDownloaderDataSet(Set<Data> data) throws TorrentDownloaderException {
         try {
-            this.synologyRepository.persistDownloaderDataSet(data);
+            Set<DataEntity> dataEntitySet=DataAdapter.getDataEntitySet(data);
+            this.synologyRepository.persistDownloaderDataSet(dataEntitySet);
 
         } catch (Exception e) {
             throw new TorrentDownloaderException("Error persisting synology data", e);
@@ -34,7 +38,8 @@ public class SynologyService {
 
     public void checkDataSet(Set<Data> data) throws TorrentDownloaderException {
         try {
-            this.synologyRepository.checkTorrentDataSet(data);
+            Set<DataEntity> dataEntitySet=DataAdapter.getDataEntitySet(data);
+            this.synologyRepository.checkTorrentDataSet(dataEntitySet);
 
         } catch (Exception e) {
             throw new TorrentDownloaderException("Error checking data", e);
