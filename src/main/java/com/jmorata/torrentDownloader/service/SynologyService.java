@@ -36,10 +36,12 @@ public class SynologyService {
         }
     }
 
-    public void checkDataSet(Set<Data> data) throws TorrentDownloaderException {
+    public Set<Data> checkDataSet(Set<Data> data) throws TorrentDownloaderException {
         try {
             Set<DataEntity> dataEntitySet=DataAdapter.getDataEntitySet(data);
             this.synologyRepository.checkTorrentDataSet(dataEntitySet);
+
+            return DataAdapter.getDataSet(dataEntitySet);
 
         } catch (Exception e) {
             throw new TorrentDownloaderException("Error checking data", e);

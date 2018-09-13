@@ -11,7 +11,7 @@ public class TorrentSortDownloaderService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public static final String DEFAULT_CATEGORY = "Video Files";
+    private static final String DEFAULT_CATEGORY = "Video Files";
 
     private SynologyService synologyService;
 
@@ -26,7 +26,7 @@ public class TorrentSortDownloaderService {
         dirOut = propertiesService.getProperty("dir.out");
     }
 
-    public void run() throws TorrentDownloaderException {
+    public void execute() throws TorrentDownloaderException {
 
         String regex = "(.+(\\.(?i)(mp4|avi|mkv))$)";
         String zipRegex = "(.+(\\.(?i)(rar|zip))$)";

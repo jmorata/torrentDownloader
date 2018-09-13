@@ -49,7 +49,7 @@ public class EliteTorrentReaderService extends DataWebReaderService {
     }
 
     private void addDataObject(Set<Data> dataSet, String linkHref, String linkTitle, String category) throws TorrentDownloaderException {
-        if (linkHref.contains("-" + category + "-")) {
+        if (linkHref.contains(category)) {
             String torrentLink = getTorrentLink(linkHref);
 
             if (!NOT_FOUND_LINK.equals(torrentLink)) {

@@ -18,7 +18,7 @@ public class DataAdapter {
         return dataEntitySet;
     }
 
-    public static DataEntity getDataEntity(Data data) {
+    private static DataEntity getDataEntity(Data data) {
         return DataEntity.builder()
                         .category(data.getCategory())
                         .link(data.getLink())
@@ -26,6 +26,26 @@ public class DataAdapter {
                         .torrent(data.getTorrent())
                         .torrentLink(data.getTorrentLink())
                         .build();
+    }
+
+    public static Set<Data> getDataSet(Set<DataEntity> dataEntitySet) {
+        Set<Data> dataSet=new HashSet<>();
+        for (DataEntity dataEntity : dataEntitySet) {
+            Data data = getData(dataEntity);
+            dataSet.add(data);
+        }
+
+        return dataSet;
+    }
+
+    private static Data getData(DataEntity dataEntity) {
+        return Data.builder()
+                .category(dataEntity.getCategory())
+                .link(dataEntity.getLink())
+                .title(dataEntity.getTitle())
+                .torrent(dataEntity.getTorrent())
+                .torrentLink(dataEntity.getTorrentLink())
+                .build();
     }
 
 }
