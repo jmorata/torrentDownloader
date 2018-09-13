@@ -11,7 +11,7 @@ public class TorrentSortDownloaderService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private static final String DEFAULT_CATEGORY = "Video Files";
+    private final String defaultCategory;
 
     private SynologyService synologyService;
 
@@ -22,6 +22,7 @@ public class TorrentSortDownloaderService {
     public TorrentSortDownloaderService(SynologyService synologyService, PropertiesService propertiesService) throws TorrentDownloaderException {
         this.synologyService = synologyService;
 
+        defaultCategory= propertiesService.getProperty("torrent.categories").split(",")[0];
         dirIn = propertiesService.getProperty("dir.in");
         dirOut = propertiesService.getProperty("dir.out");
     }
@@ -37,7 +38,7 @@ public class TorrentSortDownloaderService {
 
                 // video files
                 if (inFile.isFile() && inFile.getName().matches(regex)) {
-                    String category = DEFAULT_CATEGORY;
+                    String category = defaultCategory;
                     String directory = genCatDir(category);
                     String fileName = inFile.getName();
 
@@ -55,38 +56,39 @@ public class TorrentSortDownloaderService {
 
                     // check category
                     String category = synologyService.getCategory(dirFileName);
-                    if (category != null) {
-
-                        // create dest dir
-                        String directory = genCatDir(category);
-
-                        // zip/rar files
-                        String zipFileName = null;
-                        for (File file : inFile.listFiles()) {
-                            if (file.getName().matches(zipRegex)) {
-                                zipFileName = file.getName();
-                                break;
-                            }
-                        }
-
-                        if (zipFileName != null) {
-                            logger.warn("Detected zipped file: " + zipFileName);
-                            continue;
-                        }
-
-                        // move file
-                        for (File file : inFile.listFiles()) {
-                            if (file.getName().matches(regex)) {
-                                createFile(dirFileName, category, directory, file);
-
-                            } else {
-                                file.delete();
-                            }
-                        }
-
-                        // delete dir
-                        inFile.delete();
+                    if (category == null) {
+                        category = defaultCategory;
                     }
+
+                    // create dest dir
+                    String directory = genCatDir(category);
+
+                    // zip/rar files
+                    String zipFileName = null;
+                    for (File file : inFile.listFiles()) {
+                        if (file.getName().matches(zipRegex)) {
+                            zipFileName = file.getName();
+                            break;
+                        }
+                    }
+
+                    if (zipFileName != null) {
+                        logger.warn("Detected zipped file: " + zipFileName);
+                        continue;
+                    }
+
+                    // move file
+                    for (File file : inFile.listFiles()) {
+                        if (file.getName().matches(regex)) {
+                            createFile(dirFileName, category, directory, file);
+
+                        } else {
+                            file.delete();
+                        }
+                    }
+
+                    // delete dir
+                    inFile.delete();
                 }
             }
 
