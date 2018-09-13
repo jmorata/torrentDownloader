@@ -1,4 +1,4 @@
-package com.jmorata.torrentDownloader.Job;
+package com.jmorata.torrentDownloader.job;
 
 import com.jmorata.torrentDownloader.service.TorrentDownloaderService;
 import org.quartz.*;

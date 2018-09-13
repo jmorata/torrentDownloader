@@ -1,14 +1,13 @@
 package com.jmorata.torrentDownloader;
 
-import com.jmorata.torrentDownloader.Job.TorrentDownloaderJob;
-import com.jmorata.torrentDownloader.Job.TorrentSortDownloaderJob;
+import com.jmorata.torrentDownloader.job.TorrentDownloaderJob;
+import com.jmorata.torrentDownloader.job.TorrentSortDownloaderJob;
 import com.jmorata.torrentDownloader.exception.TorrentDownloaderException;
 import com.jmorata.torrentDownloader.factory.DataWebReaderFactory;
 import com.jmorata.torrentDownloader.quartz.QuartzUtils;
 import com.jmorata.torrentDownloader.repository.SynologyRepository;
 import com.jmorata.torrentDownloader.service.*;
 import org.quartz.*;
-import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
