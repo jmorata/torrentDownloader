@@ -1,13 +1,16 @@
 package com.jmorata.torrentDownloader;
 
-import com.jmorata.torrentDownloader.job.TorrentDownloaderJob;
-import com.jmorata.torrentDownloader.job.TorrentSortDownloaderJob;
 import com.jmorata.torrentDownloader.exception.TorrentDownloaderException;
 import com.jmorata.torrentDownloader.factory.DataWebReaderFactory;
+import com.jmorata.torrentDownloader.job.TorrentDownloaderJob;
+import com.jmorata.torrentDownloader.job.TorrentSortDownloaderJob;
 import com.jmorata.torrentDownloader.quartz.QuartzUtils;
 import com.jmorata.torrentDownloader.repository.SynologyRepository;
 import com.jmorata.torrentDownloader.service.*;
-import org.quartz.*;
+import fi.iki.elonen.SimpleWebServer;
+import org.quartz.JobDetail;
+import org.quartz.SchedulerException;
+import org.quartz.Trigger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,9 +34,20 @@ public class Main {
             createTorrentDownloaderJob();
             createTorrentSortDownloaderJob();
 
+            launchNanoWebServer();
+
         } catch (Exception e) {
             throw new TorrentDownloaderException("Generic error", e);
         }
+    }
+
+    private static void launchNanoWebServer() throws TorrentDownloaderException {
+        final String host = propertiesService.getProperty("nano.host");
+        final String port = propertiesService.getProperty("nano.port");
+        final String dirIn = propertiesService.getProperty("dir.in");
+
+        String[] args = {"--host", host, "--port", port, "--dir", dirIn};
+        SimpleWebServer.main(args);
     }
 
     private static SynologyService getSynologyService() throws TorrentDownloaderException {
@@ -61,7 +75,7 @@ public class Main {
 
     private static TorrentDownloaderService getTorrentDownloaderService(SynologyService synologyService) throws TorrentDownloaderException {
         DataWebReaderService dataWebReaderService = DataWebReaderFactory.getInstance(propertiesService);
-        return new TorrentDownloaderService(dataWebReaderService, synologyService);
+        return new TorrentDownloaderService(dataWebReaderService, synologyService, propertiesService);
     }
 
 }

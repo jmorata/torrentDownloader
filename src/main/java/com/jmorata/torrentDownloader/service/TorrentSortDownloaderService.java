@@ -19,18 +19,17 @@ public class TorrentSortDownloaderService {
 
     private final String dirOut;
 
+    private final static String regex = "(.+(\\.(?i)(mp4|avi|mkv))$)";
+
     public TorrentSortDownloaderService(SynologyService synologyService, PropertiesService propertiesService) throws TorrentDownloaderException {
         this.synologyService = synologyService;
 
-        defaultCategory= propertiesService.getProperty("torrent.categories").split(",")[0];
+        defaultCategory = propertiesService.getProperty("torrent.categories").split(",")[0];
         dirIn = propertiesService.getProperty("dir.in");
         dirOut = propertiesService.getProperty("dir.out");
     }
 
     public void execute() throws TorrentDownloaderException {
-
-        String regex = "(.+(\\.(?i)(mp4|avi|mkv))$)";
-        String zipRegex = "(.+(\\.(?i)(rar|zip))$)";
 
         try {
             File incoming = new File(dirIn);
@@ -46,12 +45,11 @@ public class TorrentSortDownloaderService {
                 }
 
                 // inside directories
-                else if (inFile.isDirectory()) {
-                    String dirFileName;
-                    if (inFile.getName().contains("[")) {
-                        dirFileName = inFile.getName().substring(0, inFile.getName().indexOf("[") - 1);
-                    } else {
-                        dirFileName = inFile.getName();
+                else if (isTorrentDir(inFile)) {
+
+                    String dirFileName= inFile.getName();
+                    if (dirFileName.contains("[")) {
+                        dirFileName = dirFileName.substring(0, dirFileName.indexOf("[") - 1);
                     }
 
                     // check category
@@ -62,20 +60,6 @@ public class TorrentSortDownloaderService {
 
                     // create dest dir
                     String directory = genCatDir(category);
-
-                    // zip/rar files
-                    String zipFileName = null;
-                    for (File file : inFile.listFiles()) {
-                        if (file.getName().matches(zipRegex)) {
-                            zipFileName = file.getName();
-                            break;
-                        }
-                    }
-
-                    if (zipFileName != null) {
-                        logger.warn("Detected zipped file: " + zipFileName);
-                        continue;
-                    }
 
                     // move file
                     for (File file : inFile.listFiles()) {
@@ -95,6 +79,18 @@ public class TorrentSortDownloaderService {
         } catch (Exception e) {
             throw new TorrentDownloaderException("There is an error sorting finished downloads", e);
         }
+    }
+
+    private boolean isTorrentDir(File inFile) {
+        if (inFile.isDirectory()) {
+            for (File file : inFile.listFiles()) {
+                if (file.getName().matches(regex)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private void createFile(String dirFileName, String category, String directory, File file) {
@@ -121,7 +117,7 @@ public class TorrentSortDownloaderService {
     private String genCatDir(String category) {
         String directory = dirOut + File.separatorChar + category;
         File destDir = new File(directory);
-        if (!destDir.exists() && !destDir.mkdirs()) {
+        if (!destDir.mkdirs() && !destDir.exists()) {
             logger.warn("You need filesystem grants to perform operation: " + destDir.getAbsolutePath());
         }
 
