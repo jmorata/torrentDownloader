@@ -28,7 +28,7 @@ public class SynologyRepository {
     private static Connection synoConn = null;
 
     public SynologyRepository(PropertiesService propertiesService) throws TorrentDownloaderException {
-        clear = new Boolean(propertiesService.getProperty("sql.clear"));
+        clear = Boolean.valueOf(propertiesService.getProperty("sql.clear"));
         user = propertiesService.getProperty("sql.user");
         pass = propertiesService.getProperty("sql.pass");
 
@@ -165,16 +165,12 @@ public class SynologyRepository {
     }
 
     public String getCategory(String title) throws Exception {
-        String category = null;
         connectTorrent();
         Statement stmt = torrentConn.createStatement();
         ResultSet rs = stmt.executeQuery("select category from data where title ilike '%" + title + "%'");
-        while (rs.next()) {
-            category = rs.getString(1);
-            break;
-        }
+        rs.next();
 
-        return category;
+        return rs.getString(1);
     }
 
     public Boolean isConnected() {

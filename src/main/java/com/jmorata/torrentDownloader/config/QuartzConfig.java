@@ -21,8 +21,8 @@ public class QuartzConfig {
     private static PropertiesService propertiesService;
 
     public QuartzConfig(SynologyService synologyService, PropertiesService propertiesService) throws TorrentDownloaderException {
-        this.synologyService = synologyService;
-        this.propertiesService = propertiesService;
+        QuartzConfig.synologyService = synologyService;
+        QuartzConfig.propertiesService = propertiesService;
 
         try {
             createTorrentDownloaderJob();

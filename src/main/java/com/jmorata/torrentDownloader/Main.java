@@ -23,8 +23,6 @@ public class Main {
         try {
             propertiesService = new PropertiesService(PROP_FILE);
 
-
-
             startQuartzConfig();
             launchNanoWebServer();
 

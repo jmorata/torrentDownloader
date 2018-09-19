@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.Objects;
 
 public class TorrentSortDownloaderService {
 
@@ -33,7 +34,7 @@ public class TorrentSortDownloaderService {
 
         try {
             File incoming = new File(dirIn);
-            for (File inFile : incoming.listFiles()) {
+            for (File inFile : Objects.requireNonNull(incoming.listFiles())) {
 
                 if (inFile.isFile() && inFile.getName().matches(regex)) {
                     String category = defaultCategory;
@@ -56,7 +57,7 @@ public class TorrentSortDownloaderService {
                     }
 
                     String directory = genCatDir(category);
-                    for (File file : inFile.listFiles()) {
+                    for (File file : Objects.requireNonNull(inFile.listFiles())) {
                         if (file.getName().matches(regex)) {
                             createFile(dirFileName, category, directory, file);
 
@@ -76,7 +77,7 @@ public class TorrentSortDownloaderService {
 
     private boolean isTorrentDir(File inFile) {
         if (inFile.isDirectory()) {
-            for (File file : inFile.listFiles()) {
+            for (File file : Objects.requireNonNull(inFile.listFiles())) {
                 if (file.getName().matches(regex)) {
                     return true;
                 }

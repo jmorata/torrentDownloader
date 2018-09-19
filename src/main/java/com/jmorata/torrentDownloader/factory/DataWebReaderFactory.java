@@ -15,14 +15,12 @@ public class DataWebReaderFactory {
 
     private static final String ELITE_TORRENT = "EliteTorrent";
 
-    private static String engine;
-
     private static String urlStr;
 
     private static String categories;
 
     public static DataWebReaderService getInstance(PropertiesService propertiesService) throws TorrentDownloaderException {
-        engine = propertiesService.getProperty("torrent.engine");
+        String engine = propertiesService.getProperty("torrent.engine");
         logger.info("Successfully configured engine: " + engine);
 
         urlStr = propertiesService.getProperty("torrent.url");
