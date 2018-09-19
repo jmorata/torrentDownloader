@@ -35,7 +35,6 @@ public class TorrentSortDownloaderService {
             File incoming = new File(dirIn);
             for (File inFile : incoming.listFiles()) {
 
-                // video files
                 if (inFile.isFile() && inFile.getName().matches(regex)) {
                     String category = defaultCategory;
                     String directory = genCatDir(category);
@@ -44,7 +43,6 @@ public class TorrentSortDownloaderService {
                     createFile(fileName, category, directory, inFile);
                 }
 
-                // inside directories
                 else if (isTorrentDir(inFile)) {
 
                     String dirFileName= inFile.getName();
@@ -52,16 +50,12 @@ public class TorrentSortDownloaderService {
                         dirFileName = dirFileName.substring(0, dirFileName.indexOf("[") - 1);
                     }
 
-                    // check category
                     String category = synologyService.getCategory(dirFileName);
                     if (category == null) {
                         category = defaultCategory;
                     }
 
-                    // create dest dir
                     String directory = genCatDir(category);
-
-                    // move file
                     for (File file : inFile.listFiles()) {
                         if (file.getName().matches(regex)) {
                             createFile(dirFileName, category, directory, file);
@@ -71,7 +65,6 @@ public class TorrentSortDownloaderService {
                         }
                     }
 
-                    // delete dir
                     inFile.delete();
                 }
             }

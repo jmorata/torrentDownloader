@@ -1,6 +1,5 @@
 package com.jmorata.torrentDownloader.quartz;
 
-import com.jmorata.torrentDownloader.exception.TorrentDownloaderException;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 

@@ -17,7 +17,7 @@ public class TorrentDownloaderService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private final static String torrentDir = "torrent";
+    public final static String torrentDir = "torrent";
 
     private final DataWebReaderService dataWebReaderService;
 
@@ -75,7 +75,7 @@ public class TorrentDownloaderService {
 
             } catch (Exception e) {
                 it.remove();
-                logger.error(data.getTorrent() + " can't be downloaded !");
+                logger.error(data.getTorrent() + " can't be downloaded !", e);
             }
         }
     }

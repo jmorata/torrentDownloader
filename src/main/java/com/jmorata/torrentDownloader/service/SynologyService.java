@@ -1,9 +1,9 @@
 package com.jmorata.torrentDownloader.service;
 
 import com.jmorata.torrentDownloader.adapter.DataAdapter;
-import com.jmorata.torrentDownloader.domain.Data;
 import com.jmorata.torrentDownloader.entity.DataEntity;
 import com.jmorata.torrentDownloader.exception.TorrentDownloaderException;
+import com.jmorata.torrentDownloader.domain.Data;
 import com.jmorata.torrentDownloader.repository.SynologyRepository;
 
 import java.util.Set;

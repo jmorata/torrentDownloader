@@ -1,9 +1,6 @@
-package com.jmorata.torrentDownloader;
+package com.jmorata.torrentDownloader.service;
 
-import com.jmorata.torrentDownloader.service.DataWebReaderService;
-import com.jmorata.torrentDownloader.service.EliteTorrentReaderService;
 import com.jmorata.torrentDownloader.service.TorrentDownloaderService;
-import org.junit.Before;
 
 public class TorrentDownloaderServiceShould {
 

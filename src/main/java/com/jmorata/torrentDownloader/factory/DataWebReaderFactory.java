@@ -23,7 +23,7 @@ public class DataWebReaderFactory {
 
     public static DataWebReaderService getInstance(PropertiesService propertiesService) throws TorrentDownloaderException {
         engine = propertiesService.getProperty("torrent.engine");
-        logger.info("Loading '" + engine + "' engine");
+        logger.info("Successfully configured engine: " + engine);
 
         urlStr = propertiesService.getProperty("torrent.url");
         categories = propertiesService.getProperty("torrent.categories");

@@ -1,7 +1,7 @@
 package com.jmorata.torrentDownloader.adapter;
 
-import com.jmorata.torrentDownloader.domain.Data;
 import com.jmorata.torrentDownloader.entity.DataEntity;
+import com.jmorata.torrentDownloader.domain.Data;
 
 import java.util.HashSet;
 import java.util.Set;

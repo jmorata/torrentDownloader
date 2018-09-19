@@ -1,15 +1,12 @@
-package com.jmorata.torrentDownloader;
+package com.jmorata.torrentDownloader.service;
 
 import com.jmorata.torrentDownloader.domain.Data;
 import com.jmorata.torrentDownloader.exception.TorrentDownloaderException;
 import com.jmorata.torrentDownloader.service.EliteTorrentReaderService;
-import com.jmorata.torrentDownloader.service.PropertiesService;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertFalse;
