@@ -17,7 +17,7 @@ public class Main {
 
     private static PropertiesService propertiesService;
 
-    public static void main(String[] args) throws TorrentDownloaderException {
+    public static void main(String[] args) {
         logger.info("TorrentDownloader v2.0 (c) jmorata");
 
         try {
@@ -26,8 +26,8 @@ public class Main {
             startQuartzConfig();
             launchNanoWebServer();
 
-        } catch (Exception e) {
-            throw new TorrentDownloaderException("Generic error", e);
+        } catch (TorrentDownloaderException e) {
+            logger.error(e.getLocalizedMessage(), e);
         }
     }
 
