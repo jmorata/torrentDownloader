@@ -1,0 +1,57 @@
+#! /bin/ash
+umask 022
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/syno/sbin:/usr/syno/bin:/usr/local/sbin:/usr/local/bin
+export PATH
+PGDATA=/var/services/pgsql
+export PGDATA
+TERMINFO=/usr/share/terminfo
+export TERMINFO
+TERM=${TERM:-cons25}
+export TERM
+PAGER=more
+export PAGER
+export LC_ALL=en_US.utf8
+export LANG=en_US.utf8
+ulimit -c unlimited
+
+case "$1" in
+    start)
+        echo -n "Starting torrentDown: "
+        /bin/grep -q 127.0.0.1 /etc/postgresql/pg_hba.conf
+        if [ $? -eq 1 ]
+        then
+        echo "host    all             all             127.0.0.1/32            trust" >>/etc/postgresql/pg_hba.conf
+        /bin/su - postgres -c "pg_ctl reload"
+        fi
+
+        cd /opt/local/torrentDown
+        /opt/bin/screen -as /bin/ash -dmS torrentDown /usr/local/java/bin/java -Duser.timezone=Europe/Madrid -jar torrentDownloader-2.0.jar
+        echo "done."
+        ;;
+    stop)
+        echo -n "Stopping torrentDown: "
+        ps w | grep torrentDownloader | grep .jar | head -1 | awk '{print $1}' | xargs kill -9
+        echo "done."
+        ;;
+    restart)
+        $0 stop
+        $0 start
+        ;;
+    status)
+        echo -n "Status torrentDown: "
+        ps w | grep torrentDownloader | grep -q .jar
+        if [ $? -eq 0 ]
+        then
+              echo "ok."
+        else
+              echo "ko."
+              "$0" start
+        fi
+        ;;
+    *)
+        echo "Usage: /opt/etc/init.d/S82torrentDown {start|stop|restart|status}"
+        exit 1
+        ;;
+esac
+
+exit 0
