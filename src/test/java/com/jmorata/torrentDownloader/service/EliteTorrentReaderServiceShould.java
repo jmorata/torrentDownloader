@@ -30,6 +30,4 @@ public class EliteTorrentReaderServiceShould {
         assertFalse(dataSet.isEmpty());
     }
 
-    // TODO: more test
-
 }

@@ -1,9 +1,11 @@
 package com.jmorata.torrentDownloader.domain;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 
 @Builder
 @lombok.Data
+@EqualsAndHashCode
 public class Data {
 
     private String title;
