@@ -154,24 +154,42 @@ public class SynologyRepository {
             Statement stmt = torrentConn.createStatement();
             ResultSet rs = stmt
                     .executeQuery("select count(*) from data where title='" + it.next().getTitle() + "'");
-            while (rs.next()) {
+            if (rs.next()) {
                 Integer count = rs.getInt(1);
                 if (count > 0) {
                     it.remove();
-                    break;
                 }
             }
         }
     }
 
     public String getCategory(String title) throws Exception {
+        String category = null;
         connectTorrent();
         Statement stmt = torrentConn.createStatement();
-        ResultSet rs = stmt.executeQuery("select category from data where title ilike '%" + title + "%'");
-        rs.next();
+        ResultSet rs = stmt.executeQuery("select count(*) from data where title ilike '%" + title + "%'");
+        if (rs.next()) {
+            Integer count = rs.getInt(1);
+            if (count > 0) {
+                stmt = torrentConn.createStatement();
+                rs = stmt.executeQuery("select category from data where title ilike '%" + title + "%'");
+                if (rs.next()) {
+                    category = rs.getString(1);
+                }
+            }
+        }
 
-        return rs.getString(1);
+        return category;
     }
+
+//    public String getCategory(String title) throws Exception {
+//        connectTorrent();
+//        Statement stmt = torrentConn.createStatement();
+//        ResultSet rs = stmt.executeQuery("select category from data where title ilike '%" + title + "%'");
+//        rs.next();
+//
+//        return rs.getString(1);
+//    }
 
     public Boolean isConnected() {
         return connect;

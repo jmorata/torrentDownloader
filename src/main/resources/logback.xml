@@ -17,6 +17,7 @@
         </encoder>
     </appender>
 
+    <logger name="org.quartz.core.JobRunShell" level="INFO"/>
     <logger name="org.quartz" level="ERROR"/>
 
     <root level="INFO">
