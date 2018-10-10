@@ -1,4 +1,4 @@
-# TorrentDownloader - a torrent downloader program for Synology NAS
+## TorrentDownloader - a torrent downloader program for Synology NAS
 
 *TorrentDownloader* is a program for download torrents from web pages
 
@@ -11,7 +11,7 @@
 * Adds this torrents to Synology's Download Station service
 * Sort download files creating category directory for each torrent
 * Delete unused files (rolling) configured by old days
-* Uses NanoHttpd as internal web server for downloading torrents
+* Uses NanoHttpd as internal web server for downloaded torrents
 
     https://github.com/NanoHttpd/nanohttpd
 
@@ -33,7 +33,7 @@ When maven finished, it created a new directory in target called dist.
 
 * Execute as:
 
-    .../java -Duser.timezone=Europe/Madrid -jar torrentDownloader-2.0.jar
+    java -Duser.timezone=Europe/Madrid -jar torrentDownloader-2.0.jar
 
 ## Configuration
 
