@@ -31,9 +31,18 @@ When maven finished, it created a new directory in target called dist.
 * `Optional`- copy S84torrentDown bash script from `/src/etc/init.d/S84torrentDown` to /opt/etc/init.d and grants exec permissions
 (the S84torrentDown file is an example for start the app as daemon service)
 
+* `Optional`- add grants for postgresql localhost:
+
+```
+    echo "host    all             all             127.0.0.1/32            trust" >>/etc/postgresql/pg_hba.conf    
+    /bin/su - postgres -c "pg_ctl reload"
+```    
+
 * Execute as:
 
+```
     java -Duser.timezone=Europe/Madrid -jar torrentDownloader-2.0.jar
+```    
 
 ## Configuration
 
@@ -79,8 +88,8 @@ Edit `torrentDownloader.properties` file as defaults:
 * `torrent.categories` - url base page for engine
 * `torrent.categories` - highlighted words in web page for the engine
 * `sql.clear` - recreate internal database (removes all torrents downloaded)
-* `sql.user` - internal parameter for Synology's Download Station database
-* `sql.pass` - internal parameters for Synology's Download Station database
+* `sql.user` - internal parameter for Synology's Download Station database (alternative `postgres`)
+* `sql.pass` - internal parameters for Synology's Download Station database (alternative `postgres`)
 * `quartz.check` - a cron expression for checking page updates
 * `quartz.sort` - a cron expression for sorting files
 * `quartz.delete` - a cron expression for delete old files (see delete.days)
