@@ -17,8 +17,8 @@ public class EliteTorrentReaderServiceShould {
 
     @Before
     public void startUp() throws Exception {
-        String downUrl = "https://www.elitetorrent.biz/peliculas-8";
-        String categoriesStr = "1080p-castellano";
+        String downUrl = "https://www.elitetorrent.biz/calidad/1080p-6";
+        String categoriesStr = "castellano";
         URL url = new URL(downUrl);
 
         eliteTorrentReaderService = new EliteTorrentReaderService(url, categoriesStr);

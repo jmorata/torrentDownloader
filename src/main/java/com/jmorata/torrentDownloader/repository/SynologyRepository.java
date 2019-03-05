@@ -182,15 +182,6 @@ public class SynologyRepository {
         return category;
     }
 
-//    public String getCategory(String title) throws Exception {
-//        connectTorrent();
-//        Statement stmt = torrentConn.createStatement();
-//        ResultSet rs = stmt.executeQuery("select category from data where title ilike '%" + title + "%'");
-//        rs.next();
-//
-//        return rs.getString(1);
-//    }
-
     public Boolean isConnected() {
         return connect;
     }
