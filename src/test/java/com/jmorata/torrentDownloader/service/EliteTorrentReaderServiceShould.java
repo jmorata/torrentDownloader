@@ -2,7 +2,6 @@ package com.jmorata.torrentDownloader.service;
 
 import com.jmorata.torrentDownloader.domain.Data;
 import com.jmorata.torrentDownloader.exception.TorrentDownloaderException;
-import com.jmorata.torrentDownloader.service.EliteTorrentReaderService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,15 +12,18 @@ import static org.junit.Assert.assertFalse;
 
 public class EliteTorrentReaderServiceShould {
 
+    private static final String PROP_FILE = "torrentDownloader.properties";
+
+    private static PropertiesService propertiesService;
+
     private EliteTorrentReaderService eliteTorrentReaderService;
 
     @Before
     public void startUp() throws Exception {
-        String downUrl = "https://www.elitetorrent.biz/calidad/1080p-6";
-        String categoriesStr = "castellano";
-        URL url = new URL(downUrl);
-
-        eliteTorrentReaderService = new EliteTorrentReaderService(url, categoriesStr);
+        propertiesService = new PropertiesService(PROP_FILE);
+        String downUrl = propertiesService.getProperty("torrent.url");
+        String categoriesStr = propertiesService.getProperty("torrent.categories");
+        eliteTorrentReaderService = new EliteTorrentReaderService(new URL(downUrl), categoriesStr);
     }
 
     @Test

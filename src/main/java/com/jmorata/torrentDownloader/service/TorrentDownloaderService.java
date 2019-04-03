@@ -65,7 +65,7 @@ public class TorrentDownloaderService {
         }
     }
 
-    private void downloadTorrentFile(Set<Data> dataSet) {
+    public void downloadTorrentFile(Set<Data> dataSet) {
         Iterator<Data> it = dataSet.iterator();
         while (it.hasNext()) {
             Data data = it.next();
@@ -81,12 +81,12 @@ public class TorrentDownloaderService {
     }
 
     private void setLocalTorrent(Data data) {
-        String localHost = "http://" + nanoHost + ":" + nanoPort + "/" + torrentDir + "/";
+        String localHost = "http://" + nanoHost + File.separatorChar + nanoPort + File.separatorChar + torrentDir + File.separatorChar;
         data.setTorrentLink(localHost + data.getTorrent());
     }
 
     private void getBinaryFile(Data data) throws IOException {
-        String urlStr = data.getTorrentLink();
+        String urlStr = data.getTorrentLink().replaceAll(" ", "%20");
         Connection.Response r = Jsoup.connect(urlStr)
                 .ignoreContentType(true)
                 .execute();

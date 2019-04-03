@@ -2,6 +2,7 @@ package com.jmorata.torrentDownloader.service;
 
 import com.jmorata.torrentDownloader.exception.TorrentDownloaderException;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.Objects;
 import java.util.Properties;
@@ -11,9 +12,9 @@ public class PropertiesService {
     private Properties properties;
 
     public String getProperty(String property) throws TorrentDownloaderException {
-        String value=properties.getProperty(property);
-        if (value==null) {
-            throw new TorrentDownloaderException("Error getting property "+property);
+        String value = properties.getProperty(property);
+        if (value == null) {
+            throw new TorrentDownloaderException("Error getting property " + property);
         }
 
         return value;
@@ -23,10 +24,10 @@ public class PropertiesService {
         try {
             String rootPath = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).getPath();
             properties = new Properties();
-            properties.load(new FileInputStream(rootPath + "/"+ configPath));
+            properties.load(new FileInputStream(rootPath + File.separatorChar + configPath));
 
         } catch (Exception e) {
-            throw new TorrentDownloaderException("Error reading properties file "+configPath, e);
+            throw new TorrentDownloaderException("Error reading properties file " + configPath, e);
         }
     }
 
