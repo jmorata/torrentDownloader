@@ -23,7 +23,7 @@ public class QuartzUtils {
                 .build();
     }
 
-    public static JobDetail getJobDetail(Class jobClass, String jobName) {
+    public static JobDetail getJobDetail(Class<? extends Job>  jobClass, String jobName) {
         return JobBuilder.newJob(jobClass)
                 .withIdentity(jobName, JOB_GROUP).build();
     }

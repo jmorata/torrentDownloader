@@ -101,6 +101,11 @@ public class DeleteFilesServiceShould {
 
         Path path = Paths.get(dummyFile.getAbsolutePath());
         Files.setAttribute(path, "creationTime", FileTime.fromMillis(calendar.getTimeInMillis()));
+        try {
+            Thread.sleep(1000); // windows file refresh
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private File genDummyTorrentFile() throws IOException {
