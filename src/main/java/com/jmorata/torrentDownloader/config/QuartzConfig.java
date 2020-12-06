@@ -2,6 +2,7 @@ package com.jmorata.torrentDownloader.config;
 
 import com.jmorata.torrentDownloader.exception.TorrentDownloaderException;
 import com.jmorata.torrentDownloader.factory.DataWebReaderFactory;
+import com.jmorata.torrentDownloader.factory.TorrentDownloaderFactory;
 import com.jmorata.torrentDownloader.job.DeleteFilesJob;
 import com.jmorata.torrentDownloader.job.TorrentDownloaderJob;
 import com.jmorata.torrentDownloader.job.TorrentSortDownloaderJob;
@@ -54,7 +55,7 @@ public class QuartzConfig {
 
     private static TorrentDownloaderService getTorrentDownloaderService(SynologyService synologyService) throws TorrentDownloaderException {
         DataWebReaderService dataWebReaderService = DataWebReaderFactory.getInstance(propertiesService);
-        return new TorrentDownloaderService(dataWebReaderService, synologyService, propertiesService);
+        return TorrentDownloaderFactory.getInstance(dataWebReaderService, synologyService, propertiesService);
     }
 
     private static void createDeleteFilesJob() throws SchedulerException, TorrentDownloaderException {

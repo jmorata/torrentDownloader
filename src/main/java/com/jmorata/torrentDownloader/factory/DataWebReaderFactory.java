@@ -4,14 +4,10 @@ import com.jmorata.torrentDownloader.exception.TorrentDownloaderException;
 import com.jmorata.torrentDownloader.service.DataWebReaderService;
 import com.jmorata.torrentDownloader.service.EliteTorrentReaderService;
 import com.jmorata.torrentDownloader.service.PropertiesService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 
 public class DataWebReaderFactory {
-
-    private static final Logger logger = LoggerFactory.getLogger(DataWebReaderFactory.class);
 
     private static final String ELITE_TORRENT = "EliteTorrent";
 
@@ -21,7 +17,6 @@ public class DataWebReaderFactory {
 
     public static DataWebReaderService getInstance(PropertiesService propertiesService) throws TorrentDownloaderException {
         String engine = propertiesService.getProperty("torrent.engine");
-        logger.info("Successfully configured engine: " + engine);
 
         urlStr = propertiesService.getProperty("torrent.url");
         categories = propertiesService.getProperty("torrent.categories");

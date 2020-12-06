@@ -13,8 +13,7 @@ import java.util.Set;
 
 public class EliteTorrentReaderService extends DataWebReaderService {
 
-    private static final String DOWNLOAD_TORRENT = "Descargar el .torrent";
-    private static final String NOT_FOUND_LINK = "not found" ;
+    private static final String NOT_FOUND_LINK = "not found";
 
     public EliteTorrentReaderService(URL url, String categoriesStr) {
         super(url, categoriesStr);
@@ -49,44 +48,49 @@ public class EliteTorrentReaderService extends DataWebReaderService {
     }
 
     private void addDataObject(Set<Data> dataSet, String linkHref, String linkTitle, String category) throws TorrentDownloaderException {
-        if (linkHref.toUpperCase().contains(category.toUpperCase())) {
-            String torrentLink = getTorrentLink(linkHref);
+        String torrentLink = getTorrentLink(linkHref, category);
 
-            if (!NOT_FOUND_LINK.equals(torrentLink)) {
-                Data data = newData(linkHref, linkTitle, category, torrentLink);
-                dataSet.add(data);
-            }
+        if (!NOT_FOUND_LINK.equals(torrentLink)) {
+            Data data = newData(linkHref, linkTitle, category, torrentLink);
+            dataSet.add(data);
         }
     }
 
     private Data newData(String linkHref, String linkTitle, String category, String torrentLink) {
         return Data.builder()
-                            .category(category)
-                            .title(linkTitle)
-                            .link(linkHref)
-                            .torrentLink(getHost(torrentLink))
-                            .torrent(getTorrent(torrentLink))
-                            .build();
+                .category(category)
+                .title(linkTitle)
+                .link(linkHref)
+                .torrentLink(getHost(linkHref) + torrentLink)
+                .torrent(getTorrent(linkHref))
+                .build();
     }
 
-    private String getTorrentLink(String linkHref) throws TorrentDownloaderException {
+    private String getTorrentLink(String linkHref, String category) throws TorrentDownloaderException {
         try {
             URL url = new URL(linkHref);
             Document doc = Jsoup.connect(url.toString()).get();
-            Elements links = doc.select("a[href]");
 
-            for (Element link : links) {
-                String text = link.text();
-                if (DOWNLOAD_TORRENT.equalsIgnoreCase(text)) {
-                    return link.attr("href");
-                }
+            if (checkCategory(doc, category)) {
+                return "#";
             }
+
+            return NOT_FOUND_LINK;
 
         } catch (Exception e) {
             throw new TorrentDownloaderException("Error processing torrent link" + linkHref, e);
         }
+    }
 
-        return NOT_FOUND_LINK;
+    private boolean checkCategory(Document doc, String category) {
+        Elements spans = doc.select("span");
+        for (Element span : spans) {
+            if (span.text().toUpperCase().contains(category.toUpperCase())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }

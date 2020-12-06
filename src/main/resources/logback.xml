@@ -17,8 +17,8 @@
         </encoder>
     </appender>
 
-    <logger name="org.quartz.core.JobRunShell" level="INFO"/>
     <logger name="org.quartz" level="ERROR"/>
+    <logger name="com.gargoylesoftware" level="ERROR"/>
 
     <root level="INFO">
         <appender-ref ref="STDOUT" />

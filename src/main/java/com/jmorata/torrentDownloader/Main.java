@@ -18,7 +18,9 @@ public class Main {
     private static PropertiesService propertiesService;
 
     public static void main(String[] args) {
-        logger.info("TorrentDownloader v2.0 (c) jmorata");
+
+        Package mainPackage = Main.class.getPackage();
+        logger.info("TorrentDownloader v"+mainPackage.getImplementationVersion()+" (c) jmorata");
 
         try {
             propertiesService = new PropertiesService(PROP_FILE);

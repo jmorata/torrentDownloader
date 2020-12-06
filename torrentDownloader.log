@@ -1,0 +1,145 @@
+20:47:21.844 INFO  c.j.t.factory.DataWebReaderFactory - Successfully configured engine: EliteTorrent
+21:09:33.372 INFO  c.j.t.factory.DataWebReaderFactory - Successfully configured engine: EliteTorrent
+21:10:25.006 INFO  c.j.t.factory.DataWebReaderFactory - Successfully configured engine: EliteTorrent
+21:11:19.312 ERROR c.j.t.s.TorrentDownloaderService - the-doorman can't be downloaded !
+java.lang.ClassCastException: com.gargoylesoftware.htmlunit.UnexpectedPage cannot be cast to com.gargoylesoftware.htmlunit.html.HtmlPage
+	at com.jmorata.torrentDownloader.service.TorrentDownloaderService.getBinaryFile(TorrentDownloaderService.java:112)
+	at com.jmorata.torrentDownloader.service.TorrentDownloaderService.downloadTorrentFile(TorrentDownloaderService.java:78)
+	at com.jmorata.torrentDownloader.service.TorrentDownloaderServiceShould.downloadTorrentFile(TorrentDownloaderServiceShould.java:55)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:160)
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:69)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:33)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:220)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:53)
+21:12:19.237 INFO  c.j.t.factory.DataWebReaderFactory - Successfully configured engine: EliteTorrent
+21:13:54.454 INFO  c.j.t.s.TorrentDownloaderService - com.gargoylesoftware.htmlunit.UnexpectedPage@45cec376
+21:19:29.275 INFO  c.j.t.factory.DataWebReaderFactory - Successfully configured engine: EliteTorrent
+21:28:09.495 INFO  c.j.t.factory.DataWebReaderFactory - Successfully configured engine: EliteTorrent
+21:28:33.048 INFO  c.j.t.factory.DataWebReaderFactory - Successfully configured engine: EliteTorrent
+21:29:50.227 ERROR c.j.t.s.TorrentDownloaderService - 111.torrent can't be downloaded !
+java.lang.NullPointerException: null
+	at com.jmorata.torrentDownloader.service.TorrentDownloaderService.getBinaryFile(TorrentDownloaderService.java:97)
+	at com.jmorata.torrentDownloader.service.TorrentDownloaderService.downloadTorrentFile(TorrentDownloaderService.java:75)
+	at com.jmorata.torrentDownloader.service.TorrentDownloaderServiceShould.downloadTorrentFile(TorrentDownloaderServiceShould.java:55)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:160)
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:69)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:33)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:220)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:53)
+21:30:12.522 ERROR c.j.t.s.TorrentDownloaderService - 2.torrent can't be downloaded !
+java.lang.NullPointerException: null
+	at com.jmorata.torrentDownloader.service.TorrentDownloaderService.getBinaryFile(TorrentDownloaderService.java:97)
+	at com.jmorata.torrentDownloader.service.TorrentDownloaderService.downloadTorrentFile(TorrentDownloaderService.java:75)
+	at com.jmorata.torrentDownloader.service.TorrentDownloaderServiceShould.downloadTorrentFile(TorrentDownloaderServiceShould.java:55)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:160)
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:69)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:33)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:220)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:53)
+21:30:17.814 ERROR c.j.t.s.TorrentDownloaderService - 3.torrent can't be downloaded !
+java.lang.NullPointerException: null
+	at com.jmorata.torrentDownloader.service.TorrentDownloaderService.getBinaryFile(TorrentDownloaderService.java:97)
+	at com.jmorata.torrentDownloader.service.TorrentDownloaderService.downloadTorrentFile(TorrentDownloaderService.java:75)
+	at com.jmorata.torrentDownloader.service.TorrentDownloaderServiceShould.downloadTorrentFile(TorrentDownloaderServiceShould.java:55)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:160)
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:69)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:33)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:220)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:53)
+21:33:02.329 INFO  c.j.t.factory.DataWebReaderFactory - Successfully configured engine: EliteTorrent
+22:23:52.520 INFO  c.j.t.factory.DataWebReaderFactory - Successfully configured engine: EliteTorrent
+22:29:45.362 INFO  com.jmorata.torrentDownloader.Main - TorrentDownloader v2.0 (c) jmorata
+22:29:45.521 INFO  c.j.t.config.QuartzConfig - Successfully configured job: deleteFilesJob
+22:29:45.521 INFO  c.j.t.config.QuartzConfig - Successfully configured job: torrentSortDownloaderJob
+22:29:45.521 INFO  c.j.t.config.QuartzConfig - Successfully configured job: torrentDownloaderJob
+22:30:20.781 INFO  com.jmorata.torrentDownloader.Main - TorrentDownloader v2.0 (c) jmorata
+22:30:20.915 INFO  c.j.t.config.QuartzConfig - Successfully configured job: deleteFilesJob
+22:30:20.915 INFO  c.j.t.config.QuartzConfig - Successfully configured job: torrentSortDownloaderJob
+22:30:20.915 INFO  c.j.t.config.QuartzConfig - Successfully configured job: torrentDownloaderJob
+22:34:53.844 INFO  com.jmorata.torrentDownloader.Main - TorrentDownloader v2.0 (c) jmorata
+22:34:53.985 INFO  c.j.t.config.QuartzConfig - Successfully configured job: deleteFilesJob
+22:34:53.985 INFO  c.j.t.config.QuartzConfig - Successfully configured job: torrentSortDownloaderJob
+22:34:53.985 INFO  c.j.t.config.QuartzConfig - Successfully configured job: torrentDownloaderJob
+22:40:31.874 INFO  com.jmorata.torrentDownloader.Main - TorrentDownloader (c) jmorata
+22:40:32.009 INFO  c.j.t.config.QuartzConfig - Successfully configured job: deleteFilesJob
+22:40:32.009 INFO  c.j.t.config.QuartzConfig - Successfully configured job: torrentSortDownloaderJob
+22:40:32.009 INFO  c.j.t.config.QuartzConfig - Successfully configured job: torrentDownloaderJob
+22:43:42.905 INFO  com.jmorata.torrentDownloader.Main - TorrentDownloader (c) jmorata
+22:47:10.097 INFO  com.jmorata.torrentDownloader.Main - TorrentDownloader vnull (c) jmorata
+23:05:19.814 INFO  com.jmorata.torrentDownloader.Main - TorrentDownloader vnull (c) jmorata
+23:38:28.499 INFO  com.jmorata.torrentDownloader.Main - TorrentDownloader vnull (c) jmorata
+23:38:28.668 INFO  c.j.t.config.QuartzConfig - Successfully configured job: deleteFilesJob
+23:38:28.668 INFO  c.j.t.config.QuartzConfig - Successfully configured job: torrentSortDownloaderJob
+23:38:28.668 INFO  c.j.t.config.QuartzConfig - Successfully configured job: torrentDownloaderJob

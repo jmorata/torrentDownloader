@@ -13,21 +13,21 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
 
-public class TorrentDownloaderService {
+public abstract class TorrentDownloaderService {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public final static String torrentDir = "torrent";
 
-    private final DataWebReaderService dataWebReaderService;
+    protected final DataWebReaderService dataWebReaderService;
 
-    private final SynologyService synologyService;
+    protected final SynologyService synologyService;
 
-    private final String dirIn;
+    protected final String dirIn;
 
-    private final String nanoHost;
+    protected final String nanoHost;
 
-    private final String nanoPort;
+    protected final String nanoPort;
 
     public TorrentDownloaderService(DataWebReaderService dataWebReaderService, SynologyService synologyService, PropertiesService propertiesService) throws TorrentDownloaderException {
         this.dataWebReaderService = dataWebReaderService;
@@ -58,7 +58,7 @@ public class TorrentDownloaderService {
         }
     }
 
-    private void createTorrentDirectory() throws TorrentDownloaderException {
+    protected void createTorrentDirectory() throws TorrentDownloaderException {
         File destDir = new File(dirIn + File.separatorChar + torrentDir);
         if (!destDir.mkdirs() && !destDir.exists()) {
             throw new TorrentDownloaderException("You need filesystem grants to perform operation: " + destDir.getAbsolutePath());
@@ -80,12 +80,12 @@ public class TorrentDownloaderService {
         }
     }
 
-    private void setLocalTorrent(Data data) {
+    protected void setLocalTorrent(Data data) {
         String localHost = "http://" + nanoHost + ":" + nanoPort + "/" + torrentDir + "/";
         data.setTorrentLink(localHost + data.getTorrent());
     }
 
-    private void getBinaryFile(Data data) throws IOException {
+    protected void getBinaryFile(Data data) throws IOException {
         String urlStr = data.getTorrentLink();
         Connection.Response r = Jsoup.connect(urlStr)
                 .ignoreContentType(true)
