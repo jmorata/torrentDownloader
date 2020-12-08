@@ -8,6 +8,7 @@ import lombok.Setter;
 @Builder
 @lombok.Data
 @EqualsAndHashCode
+@lombok.ToString
 public class Data {
 
     private String title;

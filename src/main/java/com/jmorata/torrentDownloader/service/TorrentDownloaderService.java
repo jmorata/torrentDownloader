@@ -45,15 +45,16 @@ public abstract class TorrentDownloaderService {
             Set<Data> data = dataWebReaderService.buildDataSet();
             downloadTorrentFile(data);
             data = synologyService.checkDataSet(data);
-            synologyService.persistDownloaderDataSet(data);
-            synologyService.persistTorrentDataSet(data);
 
-            if (data.isEmpty()) {
-                logger.info("There isn't updates");
-            } else {
+            if (!data.isEmpty()) {
                 for (Data rssData : data) {
-                    logger.info(rssData.getCategory() + " found: " + rssData.getTitle());
+                    logger.info(rssData.toString());
                 }
+
+                synologyService.persistDownloaderDataSet(data);
+                synologyService.persistTorrentDataSet(data);
+            } else {
+                logger.info("There isn't updates");
             }
         }
     }
