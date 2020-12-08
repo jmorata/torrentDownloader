@@ -77,7 +77,7 @@ public class SynologyRepository {
         torrentConn.close();
         connectTorrent();
         stmt = torrentConn.createStatement();
-        stmt.execute("create table data (title VARCHAR(2000),category VARCHAR(256),link VARCHAR(512))");
+        stmt.execute("create table data (title VARCHAR(2000),name VARCHAR(2000),category VARCHAR(256),link VARCHAR(512))");
     }
 
     private Statement connect() throws SQLException {
@@ -102,11 +102,12 @@ public class SynologyRepository {
         for (DataEntity data : dataSet) {
 
             PreparedStatement pstmt = torrentConn
-                    .prepareStatement("insert into data(title, category, link) values (?,?,?)");
+                    .prepareStatement("insert into data(title, name, category, link) values (?,?,?,?)");
 
             pstmt.setString(1, data.getTitle());
-            pstmt.setString(2, data.getCategory());
-            pstmt.setString(3, data.getLink());
+            pstmt.setString(2, data.getName());
+            pstmt.setString(3, data.getCategory());
+            pstmt.setString(4, data.getLink());
 
             pstmt.executeUpdate();
         }
@@ -155,7 +156,7 @@ public class SynologyRepository {
             ResultSet rs = stmt
                     .executeQuery("select count(*) from data where title='" + it.next().getTitle() + "'");
             if (rs.next()) {
-                Integer count = rs.getInt(1);
+                int count = rs.getInt(1);
                 if (count > 0) {
                     it.remove();
                 }
@@ -167,12 +168,12 @@ public class SynologyRepository {
         String category = null;
         connectTorrent();
         Statement stmt = torrentConn.createStatement();
-        ResultSet rs = stmt.executeQuery("select count(*) from data where title ilike '%" + title + "%'");
+        ResultSet rs = stmt.executeQuery("select count(*) from data where title ilike '%" + title + "%' or name ilike '%" + title + "%'");
         if (rs.next()) {
-            Integer count = rs.getInt(1);
+            int count = rs.getInt(1);
             if (count > 0) {
                 stmt = torrentConn.createStatement();
-                rs = stmt.executeQuery("select category from data where title ilike '%" + title + "%'");
+                rs = stmt.executeQuery("select category from data where title ilike '%" + title + "%' or name ilike '%" + title + "%'");
                 if (rs.next()) {
                     category = rs.getString(1);
                 }
@@ -180,6 +181,18 @@ public class SynologyRepository {
         }
 
         return category;
+    }
+
+    public String getTitle(String name) throws Exception {
+        String title = null;
+        connectTorrent();
+        Statement stmt = torrentConn.createStatement();
+        ResultSet rs = stmt.executeQuery("select title from data where name = '" + name + "'");
+        if (rs.next()) {
+            title = rs.getString(1);
+        }
+
+        return title;
     }
 
     public Boolean isConnected() {

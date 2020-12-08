@@ -57,7 +57,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.16</version>
+            <version>1.18.16</version>
             <scope>provided</scope>
         </dependency>
 
@@ -78,6 +78,14 @@
             <artifactId>htmlunit</artifactId>
             <version>2.41.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.6.28</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -123,8 +131,8 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
+                        <version>2.8</version>
                         <executions>
                             <execution>
                                 <id>copy-dependencies</id>
@@ -141,25 +149,25 @@
                     </plugin>
 
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.0.0</version>
                         <executions>
                             <execution>
                                 <phase>package</phase>
                                 <configuration>
-                                    <target>
-                                        <echo message="Copying dist files ..."/>
-                                        <copy todir="${project.build.directory}${file.separator}/dist">
-                                            <fileset dir="${project.build.directory}">
-                                                <include name="${project.build.finalName}.jar"/>
-                                            </fileset>
-                                            <fileset
-                                                    dir="${basedir}${file.separator}src${file.separator}main${file.separator}resources">
-                                                <include name="*.properties"/>
-                                                <include name="*.xml"/>
-                                            </fileset>
-                                        </copy>
-                                    </target>
+                                        <target>
+                                            <echo message="Copying dist files ..."/>
+                                            <copy todir="${project.build.directory}${file.separator}/dist">
+                                                <fileset dir="${project.build.directory}">
+                                                    <include name="${project.build.finalName}.jar"/>
+                                                </fileset>
+                                                <fileset
+                                                        dir="${basedir}${file.separator}src${file.separator}main${file.separator}resources">
+                                                    <include name="*.properties"/>
+                                                    <include name="*.xml"/>
+                                                </fileset>
+                                            </copy>
+                                        </target>
                                 </configuration>
                                 <goals>
                                     <goal>run</goal>

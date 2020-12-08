@@ -1,5 +1,7 @@
 package com.jmorata.torrentDownloader.service;
 
+import be.christophedetroyer.torrent.Torrent;
+import be.christophedetroyer.torrent.TorrentParser;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -11,7 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.StandardCopyOption;
 
-public class EliteTorrentDownloaderService extends TorrentDownloaderService{
+public class EliteTorrentDownloaderService extends TorrentDownloaderService {
     public EliteTorrentDownloaderService(DataWebReaderService dataWebReaderService, SynologyService synologyService, PropertiesService propertiesService) throws TorrentDownloaderException {
         super(dataWebReaderService, synologyService, propertiesService);
     }
@@ -24,12 +26,24 @@ public class EliteTorrentDownloaderService extends TorrentDownloaderService{
         final HtmlPage page = webClient.getPage(urlStr);
         final DomElement button = page.getElementById("elitetorrent_com_torrent");
 
+        File fileTorrent = createTorrent(data, button);
+        data.setName(getTorrentName(fileTorrent));
+    }
+
+    private String getTorrentName(File fileTorrent) throws IOException {
+        Torrent torrent = TorrentParser.parseTorrent(fileTorrent.getPath());
+        return torrent.getName();
+    }
+
+    private File createTorrent(Data data, DomElement button) throws IOException {
         InputStream contentAsStream = button.click().getWebResponse().getContentAsStream();
         File fileTorrent = new File(dirIn + File.separatorChar + torrentDir + File.separatorChar + data.getTorrent());
         java.nio.file.Files.copy(
                 contentAsStream,
                 fileTorrent.toPath(),
                 StandardCopyOption.REPLACE_EXISTING);
+
+        return fileTorrent;
     }
 
 }

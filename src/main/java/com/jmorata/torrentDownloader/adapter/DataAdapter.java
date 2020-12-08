@@ -23,6 +23,7 @@ public class DataAdapter {
                         .category(data.getCategory())
                         .link(data.getLink())
                         .title(data.getTitle())
+                        .name(data.getName())
                         .torrent(data.getTorrent())
                         .torrentLink(data.getTorrentLink())
                         .build();
@@ -43,6 +44,7 @@ public class DataAdapter {
                 .category(dataEntity.getCategory())
                 .link(dataEntity.getLink())
                 .title(dataEntity.getTitle())
+                .name(dataEntity.getName())
                 .torrent(dataEntity.getTorrent())
                 .torrentLink(dataEntity.getTorrentLink())
                 .build();

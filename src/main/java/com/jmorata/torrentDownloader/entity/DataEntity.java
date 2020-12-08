@@ -10,6 +10,8 @@ public class DataEntity {
 
     private String title;
 
+    private String name;
+
     private String category;
 
     private String link;

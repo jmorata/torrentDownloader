@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) {
 
         Package mainPackage = Main.class.getPackage();
-        logger.info("TorrentDownloader v"+mainPackage.getImplementationVersion()+" (c) jmorata");
+        logger.info("TorrentDownloader v"+ getImplementationVersion(mainPackage) +" (c) jmorata");
 
         try {
             propertiesService = new PropertiesService(PROP_FILE);
@@ -31,6 +31,10 @@ public class Main {
         } catch (TorrentDownloaderException e) {
             logger.error(e.getLocalizedMessage(), e);
         }
+    }
+
+    private static String getImplementationVersion(Package mainPackage) {
+        return mainPackage.getImplementationVersion() != null ? mainPackage.getImplementationVersion() : "DEV" ;
     }
 
     private static void startQuartzConfig() throws TorrentDownloaderException {

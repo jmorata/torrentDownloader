@@ -2,6 +2,7 @@ package com.jmorata.torrentDownloader.service;
 
 import com.jmorata.torrentDownloader.exception.TorrentDownloaderException;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,10 +88,13 @@ public class TorrentSortDownloaderService {
         return false;
     }
 
-    private void createFile(String dirFileName, String category, String directory, File file) {
+    private void createFile(String dirFileName, String category, String directory, File file) throws TorrentDownloaderException {
         String extension = file.getName().substring(file.getName().lastIndexOf("."));
-        Integer it = 0;
+        dirFileName = dirFileName.replaceAll(extension,"");
+
+        int it = 0;
         while (true) {
+            dirFileName = getTitle(dirFileName);
             String fileName = dirFileName + (it > 0 ? "(" + it + ")" : "") + extension;
             File newFile = new File(directory + File.separatorChar + fileName);
             if (!newFile.exists()) {
@@ -106,6 +110,11 @@ public class TorrentSortDownloaderService {
 
             it++;
         }
+    }
+
+    private String getTitle(String dirFileName) throws TorrentDownloaderException {
+        String title = synologyService.getTitle(dirFileName);
+        return StringUtils.isNotEmpty(title) ? title : dirFileName;
     }
 
     private String genCatDir(String category) {

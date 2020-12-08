@@ -57,6 +57,15 @@ public class SynologyService {
         }
     }
 
+    public String getTitle(String name) throws TorrentDownloaderException {
+        try {
+            return this.synologyRepository.getTitle(name);
+
+        } catch (Exception e) {
+            throw new TorrentDownloaderException("Error getting title data", e);
+        }
+    }
+
     public Boolean isConnected() {
         return this.synologyRepository.isConnected();
     }
