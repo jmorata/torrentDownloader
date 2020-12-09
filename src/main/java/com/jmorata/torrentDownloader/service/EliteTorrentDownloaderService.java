@@ -18,13 +18,15 @@ public class EliteTorrentDownloaderService extends TorrentDownloaderService {
         super(dataWebReaderService, synologyService, propertiesService);
     }
 
+    private final String ELITETORRENT = "elitetorrent_com_torrent";
+
     @Override
     protected void getBinaryFile(Data data) throws IOException {
         String urlStr = data.getTorrentLink();
 
         final WebClient webClient = new WebClient();
         final HtmlPage page = webClient.getPage(urlStr);
-        final DomElement button = page.getElementById("elitetorrent_com_torrent");
+        final DomElement button = page.getElementById(ELITETORRENT);
 
         File fileTorrent = createTorrent(data, button);
         data.setName(getTorrentName(fileTorrent));
@@ -36,14 +38,19 @@ public class EliteTorrentDownloaderService extends TorrentDownloaderService {
     }
 
     private File createTorrent(Data data, DomElement button) throws IOException {
-        InputStream contentAsStream = button.click().getWebResponse().getContentAsStream();
-        File fileTorrent = new File(dirIn + File.separatorChar + torrentDir + File.separatorChar + data.getTorrent());
-        java.nio.file.Files.copy(
-                contentAsStream,
-                fileTorrent.toPath(),
-                StandardCopyOption.REPLACE_EXISTING);
+        try {
+            InputStream contentAsStream = button.click().getWebResponse().getContentAsStream();
+            File fileTorrent = new File(dirIn + File.separatorChar + torrentDir + File.separatorChar + data.getTorrent());
+            java.nio.file.Files.copy(
+                    contentAsStream,
+                    fileTorrent.toPath(),
+                    StandardCopyOption.REPLACE_EXISTING);
 
-        return fileTorrent;
+            return fileTorrent;
+
+        } catch (IOException e) {
+            throw new IOException("Error when retrieve torrent content: " + data.getTorrentLink());
+        }
     }
 
 }
