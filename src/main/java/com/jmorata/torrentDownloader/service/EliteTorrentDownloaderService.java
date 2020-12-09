@@ -49,7 +49,7 @@ public class EliteTorrentDownloaderService extends TorrentDownloaderService {
             return fileTorrent;
 
         } catch (IOException e) {
-            throw new IOException("Error when retrieve torrent content: " + data.getTorrentLink());
+            throw new IOException("Error when retrieve torrent content: " + data.getTorrentLink(), e.getCause());
         }
     }
 

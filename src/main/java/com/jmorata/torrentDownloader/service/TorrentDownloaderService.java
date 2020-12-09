@@ -76,7 +76,7 @@ public abstract class TorrentDownloaderService {
 
             } catch (Exception e) {
                 it.remove();
-                logger.error(data.getTorrent() + " can't be downloaded !", e);
+                logger.error(e.getLocalizedMessage());
             }
         }
     }
