@@ -11,6 +11,7 @@ import lombok.Setter;
 @lombok.ToString
 public class Data {
 
+    @Setter(AccessLevel.NONE)
     private String title;
 
     private String name;
@@ -32,9 +33,16 @@ public class Data {
         return torrentLink.replaceAll(" ", "%20");
     }
 
+    private static String getOnlyPermChars(String title) {return title.replaceAll("[^\\w.-]", "_");}
+
     public static class DataBuilder {
         public DataBuilder torrentLink(String torrentLink) {
             this.torrentLink = getWithoutSpaces(torrentLink);
+            return this;
+        }
+
+        public DataBuilder title(String title) {
+            this.title = getOnlyPermChars(title);
             return this;
         }
     }

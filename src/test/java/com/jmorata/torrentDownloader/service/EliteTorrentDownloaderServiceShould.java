@@ -7,6 +7,9 @@ import com.jmorata.torrentDownloader.repository.SynologyRepository;
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(MockitoJUnitRunner.class)
 public class EliteTorrentDownloaderServiceShould {
 
     private static final String PROP_FILE = "torrentDownloader.properties";
@@ -29,30 +33,24 @@ public class EliteTorrentDownloaderServiceShould {
 
     private EliteTorrentReaderService eliteTorrentReaderService;
 
+    @Mock
+    private SynologyService synologyService;
+
     @Before
     public void startUp() throws Exception {
         propertiesService = new PropertiesService(PROP_FILE);
         String downUrl = propertiesService.getProperty("torrent.url");
         String categoriesStr = propertiesService.getProperty("torrent.categories");
+
         eliteTorrentReaderService = new EliteTorrentReaderService(new URL(downUrl), categoriesStr);
 
-        SynologyService synologyService = getSynologyService();
-        torrentDownloaderService = getTorrentDownloaderService(synologyService);
-    }
-
-    private static SynologyService getSynologyService() throws TorrentDownloaderException {
-        SynologyRepository synologyRepository = new SynologyRepository(propertiesService);
-        return new SynologyService(synologyRepository);
-    }
-
-    private static TorrentDownloaderService getTorrentDownloaderService(SynologyService synologyService) throws TorrentDownloaderException {
         DataWebReaderService dataWebReaderService = DataWebReaderFactory.getInstance(propertiesService);
-        return new EliteTorrentDownloaderService(dataWebReaderService, synologyService, propertiesService);
+        torrentDownloaderService = new EliteTorrentDownloaderService(dataWebReaderService, synologyService, propertiesService);
     }
 
     @Test
     public void downloadTorrentFile() throws TorrentDownloaderException, IOException {
-        File directory = deleteDirectoyContents();
+        File directory = deleteDirectoryContents();
 
         Set<Data> dataSet = eliteTorrentReaderService.buildDataSet().stream().limit(1).collect(Collectors.toSet());
         torrentDownloaderService.downloadTorrentFile(dataSet);
@@ -61,7 +59,7 @@ public class EliteTorrentDownloaderServiceShould {
         assertEquals(sizeDirectory, 1);
     }
 
-    private File deleteDirectoyContents() throws TorrentDownloaderException, IOException {
+    private File deleteDirectoryContents() throws TorrentDownloaderException, IOException {
         String dirIn = propertiesService.getProperty("dir.in");
         File directory = new File(dirIn + File.separatorChar + TorrentDownloaderService.torrentDir);
         FileUtils.deleteDirectory(directory);
