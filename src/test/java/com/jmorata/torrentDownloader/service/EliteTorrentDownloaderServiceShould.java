@@ -52,7 +52,7 @@ public class EliteTorrentDownloaderServiceShould {
     public void downloadTorrentFile() throws TorrentDownloaderException, IOException {
         File directory = deleteDirectoryContents();
 
-        Set<Data> dataSet = eliteTorrentReaderService.buildDataSet().stream().limit(1).collect(Collectors.toSet());
+        Set<Data> dataSet = eliteTorrentReaderService.buildDataSet().stream().limit(3).collect(Collectors.toSet());
         torrentDownloaderService.downloadTorrentFile(dataSet);
 
         int sizeDirectory = Objects.requireNonNull(directory.listFiles()).length;

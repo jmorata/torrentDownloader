@@ -30,6 +30,7 @@ public class EliteTorrentDownloaderService extends TorrentDownloaderService {
 
         File fileTorrent = createTorrent(data, button);
         data.setName(getTorrentName(fileTorrent));
+        webClient.close();
     }
 
     private String getTorrentName(File fileTorrent) throws IOException {
